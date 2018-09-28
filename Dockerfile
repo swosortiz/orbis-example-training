@@ -1,6 +1,2 @@
-FROM node:10.10.0-slim
-RUN echo "building..."
+FROM nginx:alpine
 
-RUN mkdir /app
-WORKDIR /app
-COPY preguntas.md preguntas.md
