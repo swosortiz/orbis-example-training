@@ -51,3 +51,10 @@ Ejecutamos el comando para empaquetar y reconstruir los objetos segun los cambio
  
 - ¿Cuál es la diferencia entre docker ps y docker ps -a?
 > docker ps nos lista los contenedores ejecutandos y docker ps -a nos lista todos los contenedores prendidos y apagados.
+
+
+Listar archivos del contenedor
+- docker run marlonric/orbis-training-docker:0.2.0 ls
+
+Mostrar el contenido del archivo en el contenedor
+- docker run marlonric/orbis-training-docker:0.2.0 cat preguntas.md 

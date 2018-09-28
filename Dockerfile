@@ -3,4 +3,4 @@ RUN echo "building..."
 
 RUN mkdir /app
 WORKDIR /app
-COPY preguntas.md /app/preguntas.md
+COPY preguntas.md preguntas.md
