@@ -94,6 +94,6 @@ Exponiendo puerto 80 a través del puerto 1080
 2. ¿Cómo expongo puertos en docker?
     > `EXPOSE`
 3. ¿Cómo especifico los puertos al levantar un contenedor (docker run)?
-    > `con el flag -p "8080:80""`
+gst    > `con la separacion de dos puntos ":", el primer puerto hace referencia al puerto del host y el segundo puerto hace referencia al contenedor`
 4. ¿Cómo hago 'forward' al levantar un contenedor (docker run)?
     > `con el flag -p "8080:80"`
