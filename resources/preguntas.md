@@ -16,3 +16,18 @@
  -`docker build`: Permite construir imagenes en base a un dockergfile
  -`docker inspect`: Inspeccionar contenedores o redes
  -`docker network`: nos permite manejar las redes de nuestras maquinas 
+
+
+1. ¿Qué es bash? ¿Qué significa?
+    > Es un interprete de comandos y un lenguaje de consola
+2. ¿Cómo ejecuto un archivo bash?
+    > con el comando bash o con ./name_file.sh (con permisos de ejecucio)
+3. ¿Qué pasa si no especifico en un `.sh`, la linea `#!/bin/bash`?
+    > El interprete no ejecuta linea por linea correctamente
+4. ¿Se puede cambiar el modo bash (`/bin/bash`) a otro tipo de ejecución?
+    > Si, a python, php entre otros, especificando el comando a ejecutar
+5. ¿Cómo se envía variables de entorno por Docker CLI y docker-compose?
+    > con el flag de enviroment para cli -e, para docker-composer environment y para dockerfile es ENV
+    
+* ¿Qué sucede si le quito el @?
+    > No se visualizará el comando que se esta ejecutando
