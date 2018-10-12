@@ -31,3 +31,9 @@
     
 * ¿Qué sucede si le quito el @?
     > No se visualizará el comando que se esta ejecutando
+    
+1. ¿Para qué sirve el archivo `Makefile`?
+    > Para ejecutar diferentes acciones basados en target
+   
+2. ¿Qué es un `target` en `Makefile`?
+    > Es una accion que ejecutar uno o varios comandos
