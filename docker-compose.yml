@@ -1,7 +1,12 @@
-version: "2"
+version: "3"
 services:
     nginx:
       container_name: orbis-training-docker
-      image: marlonric/orbis-training-docker:1.0.0
+      image: marlonric/orbis-training-docker:2.0.0
       ports:
-        - "1080:80"
+        - "3030:1042"
+        - "35729:35729"
+      volumes:
+        - $PWD/app:/app
+      working_dir: /app
+      command: ["npm", "start"]
