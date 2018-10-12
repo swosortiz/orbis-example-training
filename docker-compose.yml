@@ -10,3 +10,7 @@ services:
         - $PWD/app:/app
       working_dir: /app
       command: ["npm", "start"]
+    test:
+      image: node:10.10.0-slim
+      container_name: node-slim
+      command: ["curl", "http://orbis-training-docker:1042"]
