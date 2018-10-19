@@ -3,32 +3,32 @@
 DEPLOY_DIR = app/deploy
 BUILD_DIR = build
 GIT_BRANCH = gh-pages
-GIT_PERSONAL_TOKEN = --TOKEN---
-GIT_BRANCH_DIR = $(PWD)/$(DEPLOY_DIR)/$(GIT_BRANCH)	
+GIT_PERSONAL_TOKEN = e035756fe6be07a8593756baafa3115af5850caf
+GIT_BRANCH_DIR = $(PWD)/$(DEPLOY_DIR)/$(GIT_BRANCH)
 
 define mkdir_deploy_dir
     @if [ ! -d "$(GIT_BRANCH_DIR)" ]; then mkdir $(GIT_BRANCH_DIR); fi
 endef
 
 define git_init
-    @cd $(GIT_BRANCH_DIR) && \
-     rm -rf $(GIT_BRANCH_DIR)/.git && \
-     git init
+	@cd $(GIT_BRANCH_DIR) && \
+	 rm -rf $(GIT_BRANCH_DIR)/.git && \
+	 git init
 endef
 
 define git_config
-    $(eval GIT_USER_NAME := $(shell git log --pretty=format:"%an" | head -n 1))
-    $(eval GIT_USER_EMAIL := $(shell git log --pretty=format:"%ae" | head -n 1))
-    @cd $(GIT_BRANCH_DIR) && \
-     git config user.email "$(GIT_USER_EMAIL)" && \
-     git config user.name "$(GIT_USER_NAME)"
+	$(eval GIT_USER_NAME := $(shell git log --pretty=format:"%an" | head -n 1))
+	$(eval GIT_USER_EMAIL := $(shell git log --pretty=format:"%ae" | head -n 1))
+	@cd $(GIT_BRANCH_DIR) && \
+	 git config user.email "$(GIT_USER_EMAIL)" && \
+	 git config user.name "$(GIT_USER_NAME)"
 endef
 
 define git_add_remote_repository
-    $(eval REPOSITORY := $(shell git remote -v | grep origin | grep '(push)'| awk '{print $$2}'))
-    $(eval GIT_REPOSITORY_REMOTE := $(shell echo $(REPOSITORY) | sed 's%https://%https://$(GIT_PERSONAL_TOKEN)@%g'))
-    @cd $(GIT_BRANCH_DIR) && \
-     git remote add origin $(GIT_REPOSITORY_REMOTE)
+	$(eval REPOSITORY := $(shell git remote -v | grep origin | grep '(push)'| awk '{print $$2}'))
+	$(eval GIT_REPOSITORY_REMOTE := $(shell echo $(REPOSITORY) | sed 's%https://%https://$(GIT_PERSONAL_TOKEN)@%g'))
+	@cd $(GIT_BRANCH_DIR) && \
+	 git remote add origin $(GIT_REPOSITORY_REMOTE)
 endef
 
 define create_branch_gh_pages
@@ -62,7 +62,7 @@ define clean_workspace
 endef
 
 define show_deploy_url
-    $(eval GIT_REPOSITORY_REMOTE := $(shell git remote -v | grep origin | grep '(push)'| awk '{print $2}'))
+    $(eval GIT_REPOSITORY_REMOTE := $(shell git remote -v | grep origin | grep '(push)'| awk '{print $$2}'))
     $(eval GIT_REPOSITORY_REMOTE_SSH := $(shell echo '$(GIT_REPOSITORY_REMOTE)' | grep 'git@'))
 
     $(ifeq ($(strip $(GIT_REPOSITORY_REMOTE_SSH)),), \
@@ -81,12 +81,14 @@ define show_deploy_url
 endef
 
 deploy.ghpages:
-    @echo 'Deploy to gh-pages...'
-    $(call mkdir_deploy_dir) \
-	$(call git_init) \
-	$(call git_config) \
+	$(call mkdir_deploy_dir)
+	$(call git_init)
+	$(call git_config)
 	$(call git_add_remote_repository)
-
-
-
-
+	$(call create_branch_gh_pages)
+	$(call copy_files_to_deploy)
+	$(call git_add)
+	$(call create_commit)
+	$(call git_push)
+	$(call clean_workspace)
+	$(call show_deploy_url)	

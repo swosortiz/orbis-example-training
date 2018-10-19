@@ -214,7 +214,111 @@ Entra en GIT_BRANCH_DIR y pushea los cambios de forzado
 - Explicar lo que hace la función clean_workspace
   Remueve el directorio GIT_BRANCH_DIR.
 
-  
+===================
+PARTE 11 (Jenkins)
+===================  
+1. Instalación de jenkins con docker
+- Crear carpeta docker en la raiz:
+mkdir docker
+
+- Crear carpeta jenkins dentro de docker:
+mkdir jenkins
+
+- Crear archivo Dockerfile dentro de jenkins:
+mkdir Dockerfile
+
+- Resultado: /docker/jenkins/Dockerfile
+
+- En Dockerfile agregar:
+FROM jenkinsci/blueocean
+USER root
+RUN apk add --update make
+
+- Construirmos nuestra imagen a partir de esta receta con este comando.
+Ejecutar en la raiz del proyecto:
+docker build -t swosortiz/jenkins-deploy:0.1.0 docker/jenkins
+
+- Imagenes:
+REPOSITORY                        TAG                
+swosortiz/jenkins-deploy          0.1.0   (GENERADA EN BASE A LA IMAGEN ANTERIOR)          
+jenkinsci/blueocean               latest  (DESCARGADA)           
+
+- Ahora corremos nuestro container de jenkins a partir de la nueva imagen creada con el siguiente comando.
+
+docker run --rm 
+-u root 
+-p 8080:8080 
+-v jenkins-data:/var/jenkins_home 
+-v /var/run/docker.sock:/var/run/docker.sock 
+swosortiz/jenkins-deploy:0.1.0
+
+Con salto de linea:
+
+docker run --rm \
+-u root \
+-p 8080:8080 \
+-v jenkins-data:/var/jenkins_home \
+-v /var/run/docker.sock:/var/run/docker.sock \
+swosortiz/jenkins-deploy:0.1.0
+
+
+- Acceder a http://localhost:8080/login?from=%2F
+Se mostrará la ruta /var/jenkins_home/secrets/initialAdminPassword del token de acceso para Jenkins.
+
+- Obtener ID del container o el nombre:
+docker ps
+
+- Acceder al contenedor y correr bash:
+docker exec -it c606e5b42ddc bash 
+
+- Dentro del contenedor acceder a la ruta /var/jenkins_home/secrets/initialAdminPassword
+Para eso ejecutar:
+bash-4.4# cat /var/jenkins_home/secrets/initialAdminPassword
+
+- Copiar el hash:  45e94d9d226e434e9fcba8f166f743dc
+
+- Acceder a http://localhost:8080/login?from=%2F y pegar el hash.
+
+- Luego seleccionar en "Instalar Plugins"
+- Instalando ... siguiente, siguiente y restart.
+- Refrescar y acceder a Jenkins.
+
+- En Jenkis crear una tarea http://localhost:8080/newJob ,  nombre "primer_jobs", luego seleccionar "Pipeline" y OK.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

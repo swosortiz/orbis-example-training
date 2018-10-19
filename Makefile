@@ -1,3 +1,4 @@
+include makefiles/deploy-ghpages.mk
 include makefiles/task.mk
 
 export NAME ?= Harry Potter local
