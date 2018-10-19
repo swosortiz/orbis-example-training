@@ -1,2 +1,6 @@
 .idea/
 /app/node_modules
+
+/app/deploy
+/app/deploy/build
+/app/build

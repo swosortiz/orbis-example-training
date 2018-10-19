@@ -97,3 +97,126 @@ Exponiendo puerto 80 a través del puerto 1080
 gst    > `con la separacion de dos puntos ":", el primer puerto hace referencia al puerto del host y el segundo puerto hace referencia al contenedor`
 4. ¿Cómo hago 'forward' al levantar un contenedor (docker run)?
     > `con el flag -p "8080:80"`
+
+
+
+
+Respuestas Partes 10:
+====================    
+1. 
+rm -rf app/build
+
+- En "orbis-training-project/app/package.json" modificar:
+
+"release": "remarker build --source preguntas.md --dest ./deploy/build"
+
+- Ejecutar:
+
+make release
+
+3. 
+mv Makefile-task.mk makefiles
+
+4. 
+mv makefiles/Makefile-task.mk makefiles/task.mk
+
+- En el archivo Makefile modificar lo siguiente a:
+include makefiles/task.mk
+
+5. 
+touch makefiles/deploy-ghpages.mk
+
+Preguntas:
+==========
+1. ¿Qué significa el comando -d?
+    Verifica la existencia del directorio
+
+    if [ -d makefiles/ ]; then echo existe el directorio!; fi
+2. ¿Porqué la sentencia comienza con @?
+    @ especifica que la instruccion es un commando.
+
+3. ¿Para qué sirve el comando mkdir?
+    Para crear una carpeta.
+
+4. Explicar lo que hace la función mkdir_deploy_dir
+   Verifica que el directorio existe. Si no existe crea el directorio.
+
+Preguntas:
+==========
+1. ¿Para qué sirve el uso de \?
+    Permite ejecutar comandos en la siguiente linea.
+
+2. ¿Para qué sirve el uso de &&?
+    Ejecuta un comando luego de otro comando. No es pipe.
+
+3. ¿Qué función cumple usar los argumentos -rf?
+    En rm:
+        -r: recursivo
+        -f: file
+
+4. Explicar lo que hace la función git_init (linea por linea)
+   La funcion git_init entra al directorio, remueve .git y ejecuta el comando git_init
+
+Preguntas:
+==========
+
+1. ¿Para qué sirve el uso de eval?
+    Asigna un resultado a una variable
+
+2. ¿Para qué sirve el uso de shell?
+    Para ejecutar un comando en shell.
+
+- ¿Para qué sirve el uso de git log --pretty=format:"%an"?
+    El comando lista los commits segun un formato.
+    '%an': author name
+    '%ae': author email
+    '%s': commit message
+
+3. ¿Cuál es la diferencia en usar git config y git config --global?
+    Git config cambia .git a nivel local. 
+    Git config --global a nivel general. 
+
+4. Explicar lo que hace la función git_config (línea por línea)
+    Asigna el author name del ultimo commit a la variable GIT_USER_NAME
+    Asigna el author email del ultimo commit a la variable GIT_USER_NAME
+    Entra al directorio y actualiza el config local de .git/
+
+Preguntas:
+==========
+1. ¿Para qué sirve el uso de awk?
+    Sirve para buscar y formatear texto.
+
+2. ¿Para qué sirve el uso de sed?
+    stream editor for filtering and transforming text
+
+3. ¿Para qué sirve el uso de git log --pretty=format:"%an"?
+    Lee log commits y muestra la salida formateada de la forma solo nombre del autor.
+
+4. Explicar lo que hace la función git_add_remote_repository
+    Obtiene el nombre del repositorio remoto en git y los asigna a la variable REPOSITORY.
+    Luego, formatea la variable REPOSITORY concatenandola con un prefijo y lo asigna a la variable GIT_REPOSITORY_REMOTE
+    Luego, entra en la carpeta GIT_BRANCH_DIR y agrega la url de GIT_REPOSITORY_REMOTE al remote list de git.
+
+PREGUNTAS:
+==========
+- Explicar lo que hace la función copy_files_to_deploy
+Copia un archivo a otro directorio
+
+- Explicar lo que hace la función git_add
+Entra en la carpeta GIT_BRANCH_DIR y agrega todos los archivos a la rama GIT_BRANCH e inmediatamente ejecuta git status.
+
+- Explicar lo que hace la función create_commit (línea por línea)
+  Obtiene el mensaje del ultimo commit y lo asigna en la variable temporal MESSAGE. Luego entra en GIT_BRANCH_DIR y commitea el mensaje.
+
+- Explicar lo que hace la función git_push (línea por línea)
+Entra en GIT_BRANCH_DIR y pushea los cambios de forzado
+
+- Explicar lo que hace la función clean_workspace
+  Remueve el directorio GIT_BRANCH_DIR.
+
+  
+
+
+
+
+

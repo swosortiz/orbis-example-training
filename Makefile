@@ -1,4 +1,4 @@
-include Makefile-task.mk
+include makefiles/task.mk
 
 export NAME ?= Harry Potter local
 NAME_IMAGE ?= marlonric/orbis-training-docker
